@@ -1,0 +1,54 @@
+#ifndef ARDM_SENSITIVEPMT
+#define ARDM_SENSITIVEPMT
+
+#define DEFAULTVALUE -11111111
+#define PMT_ACTIVE_RANGE_RADIUS 95.0240426*mm
+
+#include "ArDM_PMTHit.hh"
+#include "G4VSensitiveDetector.hh"
+#include "G4ThreeVector.hh"
+#include "vector"
+
+using namespace std;
+
+class ArDM_SensitivePMT : public G4VSensitiveDetector {
+
+public:
+  ~ArDM_SensitivePMT();
+  ArDM_SensitivePMT(G4int,G4String,G4String,G4String,G4double,G4int);
+
+  virtual void Initialize(G4HCofThisEvent*)=0;
+  virtual void EndOfEvent(G4HCofThisEvent*)=0;
+  virtual G4bool ProcessHits(G4Step*,G4TouchableHistory*)=0;
+
+protected:
+  G4int fnpmt;
+  G4String fDetName;
+  G4String fHitsColName;
+  G4String fTop_or_bottom;
+  
+  G4ThreeVector fNormal;
+  vector<G4ThreeVector> fPMTvector;
+
+  G4int* fTotNphotonPMT;
+  G4int** fNphotonPMT;
+
+  G4double fTimeSample;
+  G4int fNTimeSamples;
+
+  G4ThreeVector closestPMT(G4ThreeVector hitpos,vector<G4ThreeVector> PMTvector,G4int& pmtID);
+  G4ThreeVector closestPMT(G4ThreeVector hitpos,G4int& pmtID);
+
+  G4double detectionProb(G4double phi);
+  G4double detectionProb(G4ThreeVector hitpos,G4ThreeVector rPMT);
+  G4double detectionProb(G4ThreeVector hitpos,vector<G4ThreeVector> PMTvector,G4int& pmtID);
+  G4double detectionProb(G4ThreeVector hitpos,G4int& pmtID);
+
+  G4int detected(G4ThreeVector hitpos,vector<G4ThreeVector> PMTvector,G4int& pmtID);
+  G4int detected(G4ThreeVector hitpos,G4int& pmtID);
+  G4int detected(G4ThreeVector hitpos);
+  
+  ArDM_PMTHitsCollection* fHitsCol;
+};
+
+#endif
