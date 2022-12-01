@@ -1,0 +1,17 @@
+/gps/particle neutron
+
+/gps/ang/type iso
+
+/gps/pos/type Volume
+/gps/pos/shape Cylinder
+/gps/pos/centre 0 0 96.625 mm
+/gps/pos/radius 49.5 cm
+/gps/pos/halfz 61 cm
+/gps/pos/confine neutronShield 
+
+/gps/ene/type Arb
+/gps/hist/file data/Poly_238U_an.dat
+/gps/hist/inter Lin
+
+/gps/number 1
+/run/beamOn 1000

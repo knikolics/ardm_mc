@@ -1,0 +1,8 @@
+#README
+
+---> generates 
+	-) neutrons w/ energy according to spectrum found in file (data/*.dat), neutron position randomly distributed in stainless steel tank
+        -) neutrons or other particles with a flat random energy distribution
+
+Usage: ardm_mc N(particles) particleType(e.g. 'e-')
+choose starting volume for neutrons and file(e.g. 'SS_238U') + reaction_type('an' or 'sf') later, if desired
